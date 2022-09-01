@@ -2,7 +2,7 @@
 
 [![https://badge.fury.io/py/clidpy.svg](https://badge.fury.io/py/clidpy.svg)](https://pypi.org/project/clidpy/)
 
-A Python module for making simple CLI-configured Discord bots.
+A simple CLI-configured Discord bot.
 
 I make a surprising number of "single-serving" bots, so I figured this module would be useful for me.
 
