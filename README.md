@@ -1,20 +1,34 @@
 # clidpy
 
-A Python module for making CLI-configured Discord bots that respond to commands by evaluating Python expressions.
+[![https://badge.fury.io/py/clidpy.svg](https://badge.fury.io/py/clidpy.svg)](https://pypi.org/project/clidpy/)
 
-I make a surprising number of "single-serving" bots, so I figured this module would be useful for me — like `python -m http.server` but for Discord bots.
+A Python module for making simple CLI-configured Discord bots.
 
-Example usage:
+I make a surprising number of "single-serving" bots, so I figured this module would be useful for me.
 
-```sh
-python -m clidpy $BOT_TOKEN "!" "wp" "'https://en.wikipedia.org/wiki/' + title.replace(' ', '_')"
+It's kinda like `python -m http.server` but for Discord bots.
+
+## Usage
+
+Run `pip install clidpy`, get your `BOT_TOKEN` from [here](https://discord.com/developers/applications), and then run:
+
+```
+python -m clidpy $BOT_TOKEN "!" greet "f'Hello, {name}!'"
 ```
 
-Free variables in the expression are automatically turned into parameters using `ast`.
-
-You can import modules with `-i` and call their functions:
+You can import modules with `-i` before the token, and define multiple commands:
 
 ```sh
-python -m clidpy -i num2words $BOT_TOKEN "!" "spell" "num2words.num2words(number)"
-python -m clidpy -i random $BOT_TOKEN "!" "roll" "f'Rolling a {sides}-sided die: **{random.randint(1, int(sides))}**'"
+python -m clidpy -i num2words -i random $BOT_TOKEN "!" \
+    reverse "text[::-1]" \
+    shout "f'**{text.upper()}!!!**'" \
+    wp "'https://en.wikipedia.org/wiki/' + title.replace(' ', '_')" \
+    spell "num2words.num2words(number)" \
+    roll "f'Rolling a {sides}-sided die: **{random.randint(1, int(sides))}**'"
 ```
+
+Free variables in each expression are automatically turned into parameters.
+
+Commands work both with the supplied prefix (here `!`), and as slash commands:
+
+![Demonstrating clidpy-defined commands](https://user-images.githubusercontent.com/16232127/187996745-344d89f4-1664-4851-8f37-2fc73f5978e9.png)
